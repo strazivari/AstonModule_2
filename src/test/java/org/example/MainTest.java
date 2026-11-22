@@ -37,9 +37,9 @@ public class MainTest {
         String output = captureOutput(students);
 
         assertAll(
-                () -> assertTrue(output.contains("Student{name='Vlad'")),
-                () -> assertTrue(output.contains("Student{name='Anna'")),
-                () -> assertTrue(output.contains("Student{name='Oleg'")),
+                () -> assertTrue(output.contains("Студент{Имя='Vlad'")),
+                () -> assertTrue(output.contains("Студент{Имя='Anna'")),
+                () -> assertTrue(output.contains("Студент{Имя='Oleg'")),
                 () -> assertTrue(output.contains("Год: 2005"),
                         () -> "Фактический вывод:\n" + output
                 )
