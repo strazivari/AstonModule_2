@@ -8,23 +8,26 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        List<Student> students = StudentFileReader.readStudents(
+        processStudents(StudentFileReader.readStudents(
                 Path.of("src/main/resources/students")
-        );
-
-        students.stream()
-                .peek(System.out::println)
-                .map(Student::getBooks)
-                .flatMap(List::stream)
-                .sorted(Comparator.comparingInt(Book::getPages))
-                .distinct()
-                .filter(book -> book.getYear() > 2000)
-                .limit(3)
-                .map(Book::getYear)
-                .findFirst()
-                .ifPresentOrElse(
-                        year -> System.out.println("Год: " + year),
-                        () -> System.out.println("Book not found")
-                );
+        ));
     }
-}
+        static void processStudents(List<Student> students) {
+
+            students.stream()
+                    .peek(System.out::println)
+                    .map(Student::getBooks)
+                    .flatMap(List::stream)
+                    .sorted(Comparator.comparingInt(Book::getPages))
+                    .distinct()
+                    .filter(book -> book.getYear() > 2000)
+                    .limit(3)
+                    .map(Book::getYear)
+                    .findFirst()
+                    .ifPresentOrElse(
+                            year -> System.out.println("Год: " + year),
+                            () -> System.out.println("Книга не найдена")
+                    );
+        }
+    }
+

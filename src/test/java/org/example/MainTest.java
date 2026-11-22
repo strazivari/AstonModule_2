@@ -1,12 +1,13 @@
-import org.example.Book;
-import org.example.Main;
-import org.example.Student;
+package org.example;
+
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,34 +28,27 @@ public class MainTest {
     }
 
     @Test
-    void shouldFindFirstYearAfterSortingAndFiltering() {
+    void shouldFindFirstYearAfterSortingAndFiltering() throws Exception {
 
-        Student vlad = new Student("vlad", List.of(
-                new Book("Old book", 100, 1999),
-                new Book("Java", 400, 2020),
-                new Book("Spring", 250, 2015),
-                new Book("Docker", 300, 2022),
-                new Book("Shared", 125, 2005)
-        ));
+        Path path = Path.of(Objects.requireNonNull(getClass().getResource("/studentsTest")).toURI());
 
-        Student anna = new Student("Anna", List.of(
-                new Book("Shared", 125, 2005),
-                new Book("Testing", 110, 2017),
-                new Book("SQL", 200, 2001),
-                new Book("Linux", 300, 1990),
-                new Book("Cloud", 500, 2023)
-        ));
+        List<Student> students = StudentFileReader.readStudents(path);
 
-        String output = captureOutput(List.of(vlad, anna));
+        String output = captureOutput(students);
 
-        assertTrue(output.contains("student{name='Vlad'"));
-        assertTrue(output.contains("student{name='Anna'"));
+        assertAll(
+                () -> assertTrue(output.contains("Student{name='Vlad'")),
+                () -> assertTrue(output.contains("Student{name='Anna'")),
+                () -> assertTrue(output.contains("Student{name='Oleg'")),
+                () -> assertTrue(output.contains("Год: 2005"),
+                        () -> "Фактический вывод:\n" + output
+                )
+        );
 
-        assertTrue(output.contains("Год: 2017"));
     }
 
     @Test
-    void shouldPrintMessageWhenMoBooksMatch() {
+    void shouldPrintMessageWhenNoBooksMatch() {
 
         Student student = new Student("Vlad", List.of(
                 new Book("Book A", 100, 1990),

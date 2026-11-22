@@ -60,10 +60,10 @@ public final class Book {
 
     @Override
     public String toString() {
-        return "Book{" +
-                "title='" + title + '\'' +
-                ", pages=" + pages +
-                ", year=" + year +
+        return "Книга {" +
+                "Название='" + title + '\'' +
+                ", страницы=" + pages +
+                ", год=" + year +
                 '}';
     }
 }

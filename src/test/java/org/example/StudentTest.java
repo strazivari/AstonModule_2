@@ -1,5 +1,5 @@
-import org.example.Book;
-import org.example.Student;
+package org.example;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -49,8 +49,8 @@ public class StudentTest {
                         () -> new Student(null, createFiveBooks())
                 ),
                 () -> assertThrows(
-                        IllegalArgumentException.class,
-                        () -> new Student("Vlad", createFiveBooks())
+                        NullPointerException.class,
+                        () -> new Student("Vlad", null)
                 )
         );
     }
@@ -64,7 +64,7 @@ public class StudentTest {
 
         assertEquals(5, student.getBooks().size());
 
-        assertThrows(IllegalArgumentException.class, () ->
+        assertThrows(UnsupportedOperationException.class, () ->
                 student.getBooks().clear()
         );
     }

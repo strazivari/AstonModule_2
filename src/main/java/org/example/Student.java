@@ -31,9 +31,9 @@ public final class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "name='" + name + '\'' +
-                ", books=" + books +
+        return "Студент{" +
+                "Имя='" + name + '\'' +
+                ", Книги=" + books +
                 '}';
     }
 }

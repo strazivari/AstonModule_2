@@ -48,6 +48,9 @@ public class StudentFileReader {
 
         for (String bookEntry : bookEntries) {
 
+            int pages;
+            int year;
+
             String[] bookData = bookEntry.split(",", -1);
 
             if (bookData.length != 3) {
@@ -55,12 +58,8 @@ public class StudentFileReader {
             }
             String title = bookData[0].trim();
 
-            int pages;
-            int year;
-
             try {
                 pages = Integer.parseInt(bookData[1].trim());
-
                 year = Integer.parseInt(bookData[2].trim());
             }
             catch (NumberFormatException e) {
